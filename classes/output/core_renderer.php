@@ -177,7 +177,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         return $theme->setting_file_url('logo', 'logo');
     }
-    
+
     /**
      * Return the site's compact logo URL, if any.
      *
@@ -321,6 +321,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         // Image data.
         //if (isset($contextheader->imagedata)) {
+        if ($this->get_theme_logo_url()) {
             // Header specific image.
             $img = html_writer::link(new moodle_url('/'),
                 html_writer::empty_tag('img', array(
@@ -328,14 +329,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 'alt' => get_string('home'))),
                 array('title' => get_string('home')));
             $html .= html_writer::div($img, 'page-header-image mr-2');
-        //}
-
-        // Headings.
-        if (isset($contextheader->prefix)) {
-            $prefix = html_writer::div($contextheader->prefix, 'text-muted text-uppercase small line-height-3');
-            $heading = $prefix . $heading;
+        } else {
+            // Headings.
+            if (isset($contextheader->prefix)) {
+                $prefix = html_writer::div($contextheader->prefix, 'text-muted text-uppercase small line-height-3');
+                $heading = $prefix . $heading;
+            }
+            $html .= html_writer::tag('div', $heading, array('class' => 'page-header-headings'));
         }
-        $html .= html_writer::tag('div', $heading, array('class' => 'page-header-headings'));
 
         // Buttons.
         if (isset($contextheader->additionalbuttons)) {
@@ -474,7 +475,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         return $output;
     }
-    
+
     /**
      * Performance information and validation links for debugging.
      *
@@ -529,53 +530,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $theme = theme_config::load('cul_moove');
 
-        $theme->settings->googleanalytics;
-        return $output.'
-                
-           <div class="footerlinks d-flex flex-wrap text-center text-md-left py-5">
-            <div class="footnote col-12 col-md-6 mb-4 mb-md-0 p-0">
-                <p></p><p></p>
-                <p>Cass Business School has been renamed to Bayes Business School. There may still be references to Cass Business School in content produced before September 2021.&nbsp;<span style="font-size: 1rem; letter-spacing: 0.1px;">Find out more about the name change <a href="https://www.bayes.city.ac.uk/about/more/our-name-change" target="_blank">on our website</a>.</span></p><p>City, University of London is an independent member institution of 
-                    the University of London. Established by Royal Charter in 1836, the 
-                    University of London consists of 18 independent member institutions with
-                    outstanding global reputations and several
-                    prestigious central academic bodies and activities.</p>
-                <p></p>
-                <h1 class="h5">Contact us</h1>+44 (0)20 7040 5060
-                <br><a href="https://www.city.ac.uk/about/find-contact/contact" target="_blank">Make an enquiry
-                </a><br>
-                <p></p><br><p></p>
-            </div>
-            <img class="footerlogo mx-auto mr-md-0 ml-md-auto"
-                 src="https://moodle.city.ac.uk/theme/image.php/cul_boost/theme/1664260351/city-footerlogo"
-                 alt="City, University of London"/>
-        </div></div>
-        <div class="footer-bottom py-3">
-            <div class="container-fluid d-flex flex-wrap align-items-between">
-                <div>&copy; 2022 City, University of London</div>
-                <a href="#topofscroll" class="scrolltop text-white mx-auto">Back to top
-                    <i class="fa fa-angle-up ml-2"></i>
-                </a>
-                <div>
-                    <p></p>
-                    <p><a href="https://www.city.ac.uk/about/city-information/legal" target="_blank">Legal</a></p>
-                    <p><a href="https://cityuni.service-now.com/">Help &amp; Support</a></p>
-                    <p><a href="https://blogs.city.ac.uk/accessibility/moodle/" id="accessibility">Accessibility</a></p>
-                    <p></p>
-                </div>
-            </div>
-        </div><style>page-context-header img {width:100px;max-height: 80px;}
-footer#page-footer .bg-dark{ background-color: #a22833!important;}
-footer#page-footer .footer-bottom.py-3 {background-color: darkred;}
-#page-footer .copyright {background-color: darkred;}
-#page.drawers .main-inner {margin-top: 1.5rem;}
-@media (min-width: 1000px) {
-.page-context-header {margin-left: -80px;}
-}
-.pagelayout-standard #page.drawers .footer-popover, body.limitedwidth #page.drawers .footer-popover {
-    width: 100%;max-width:100%}
-#page.drawers {
-    padding: 0;}</style>';
+        $output .= $theme->settings->footer . '</div>' . $theme->settings->footerbottom;
+        return $output;
     }
 
 }
