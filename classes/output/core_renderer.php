@@ -80,45 +80,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
-     * Returns HTML attributes to use within the body tag. This includes an ID and classes.
-     *
-     * @param string|array $additionalclasses Any additional classes to give the body tag,
-     *
-     * @return string
-     *
-     * @throws \coding_exception
-     *
-     * @since Moodle 2.5.1 2.6
-     */
-    public function body_attributes($additionalclasses = array()) {
-        $hasaccessibilitybar = get_user_preferences('themecul_moovesettings_enableaccessibilitytoolbar', '');
-        if ($hasaccessibilitybar) {
-            $additionalclasses[] = 'hasaccessibilitybar';
-
-            $currentfontsizeclass = get_user_preferences('accessibilitystyles_fontsizeclass', '');
-            if ($currentfontsizeclass) {
-                $additionalclasses[] = $currentfontsizeclass;
-            }
-
-            $currentsitecolorclass = get_user_preferences('accessibilitystyles_sitecolorclass', '');
-            if ($currentsitecolorclass) {
-                $additionalclasses[] = $currentsitecolorclass;
-            }
-        }
-
-        $fonttype = get_user_preferences('themecul_moovesettings_fonttype', '');
-        if ($fonttype) {
-            $additionalclasses[] = $fonttype;
-        }
-
-        if (!is_array($additionalclasses)) {
-            $additionalclasses = explode(' ', $additionalclasses);
-        }
-
-        return ' id="'. $this->body_id().'" class="'.$this->body_css_classes($additionalclasses).'"';
-    }
-
-    /**
      * Whether we should display the main theme or site logo in the navbar.
      *
      * @return bool

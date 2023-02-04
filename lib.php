@@ -188,3 +188,11 @@ function theme_cul_moove_pluginfile($course, $cm, $context, $filearea, $args, $f
 
     send_file_not_found();
 }
+
+function theme_cul_moove_page_init(moodle_page $page) {
+    global $CFG;
+    if (file_exists($CFG->dirroot . "/local/accessibilitytool/lib.php")) {
+        require_once($CFG->dirroot . "/local/accessibilitytool/lib.php");
+        local_accessibilitytool_page_init($page);
+    }
+}
