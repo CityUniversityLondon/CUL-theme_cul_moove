@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'CUL Moove';
 $string['configtitle'] = 'CUL Moove';
-$string['choosereadme'] = 'CUL Moove is a modern highly-customisable theme. This theme is intended to be used directly.';
+$string['choosereadme'] = 'CUL Moove is a modern highly-customisable theme. This theme is intended to be used directly, or as a parent theme when creating new themes utilising Bootstrap 4.';
 
 $string['currentinparentheses'] = '(current)';
 $string['region-side-pre'] = 'Right';

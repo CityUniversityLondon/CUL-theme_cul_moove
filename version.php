@@ -15,11 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * City.
+ * cul_moove.
  *
  * @package    theme_cul_moove
- * @copyright 2022 City University - https://www.city.ac.uk/
- * @author Delvon Forrester delvon.forrester@esparanza.co.uk
+ * @copyright  2022 Willian Mano - https://conecti.me
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -31,10 +30,10 @@ defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'theme_cul_moove';
 
 // This is the version of the plugin.
-$plugin->version = 2022112400;
+$plugin->version = 2023020100;
 
 // This is the named version.
-$plugin->release = '4.0.1';
+$plugin->release = '4.0.7';
 
 // This is a stable release.
 $plugin->maturity = MATURITY_STABLE;

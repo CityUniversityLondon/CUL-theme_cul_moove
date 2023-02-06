@@ -49,12 +49,12 @@ function theme_cul_moove_get_main_scss_content($theme) {
         $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
     }
 
-    //Moove scss.
-    $moovevariables = file_get_contents($CFG->dirroot . '/theme/moove/scss/moove/_variables.scss');
-    $moove = file_get_contents($CFG->dirroot . '/theme/moove/scss/default.scss');
+    // cul_moove scss.
+    $cul_moovevariables = file_get_contents($CFG->dirroot . '/theme/cul_moove/scss/cul_moove/_variables.scss');
+    $cul_moove = file_get_contents($CFG->dirroot . '/theme/cul_moove/scss/default.scss');
 
     // Combine them together.
-    $allscss = $moovevariables . "\n" . $scss . "\n" . $moove;
+    $allscss = $cul_moovevariables . "\n" . $scss . "\n" . $cul_moove;
 
     return $allscss;
 }
@@ -74,18 +74,6 @@ function theme_cul_moove_get_extra_scss($theme) {
         $content .= 'body.pagelayout-login #page { ';
         $content .= "background-image: url('$loginbgimgurl'); background-size: cover;";
         $content .= ' }';
-        $content .= '.page-context-header img {width:100px;max-height: 80px;}
-footer#page-footer .bg-dark{ background-color: #a22833!important;}
-footer#page-footer .footer-bottom.py-3 {background-color: darkred;}
-#page-footer .copyright {background-color: darkred;}
-#page.drawers .main-inner {margin-top: 1.5rem;}
-@media (min-width: 1000px) {
-.page-context-header {margin-left: -80px;}
-}
-.pagelayout-standard #page.drawers .footer-popover, body.limitedwidth #page.drawers .footer-popover {
-    width: 100%;max-width:100%}
-#page.drawers {
-    padding: 0;}';
     }
 
     // Always return the background image with the scss when we have it.
@@ -157,7 +145,7 @@ function theme_cul_moove_pluginfile($course, $cm, $context, $filearea, $args, $f
     $theme = theme_config::load('cul_moove');
 
     if ($context->contextlevel == CONTEXT_SYSTEM &&
-        ($filearea === 'logo' || $filearea === 'loginbgimg' || $filearea == 'favicon' || $filearea == 'abc' || $filearea == 'xyz')) {
+        ($filearea === 'logo' || $filearea === 'loginbgimg' || $filearea == 'favicon' || isset($theme->settings->{$filearea}))) {
         $theme = theme_config::load('cul_moove');
         // By default, theme files must be cache-able by both browsers and proxies.
         if (!array_key_exists('cacheability', $options)) {

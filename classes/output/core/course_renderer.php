@@ -29,7 +29,7 @@ use html_writer;
 use coursecat_helper;
 use stdClass;
 use core_course_list_element;
-use theme_moove\util\course;
+use theme_cul_moove\util\course;
 
 /**
  * Renderers to align cul_moove's course elements to what is expect

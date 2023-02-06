@@ -80,6 +80,45 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * Returns HTML attributes to use within the body tag. This includes an ID and classes.
+     *
+     * @param string|array $additionalclasses Any additional classes to give the body tag,
+     *
+     * @return string
+     *
+     * @throws \coding_exception
+     *
+     * @since Moodle 2.5.1 2.6
+     */
+    public function body_attributes($additionalclasses = array()) {
+        $hasaccessibilitybar = get_user_preferences('themecul_moovesettings_enableaccessibilitytoolbar', '');
+        if ($hasaccessibilitybar) {
+            $additionalclasses[] = 'hasaccessibilitybar';
+
+            $currentfontsizeclass = get_user_preferences('accessibilitystyles_fontsizeclass', '');
+            if ($currentfontsizeclass) {
+                $additionalclasses[] = $currentfontsizeclass;
+            }
+
+            $currentsitecolorclass = get_user_preferences('accessibilitystyles_sitecolorclass', '');
+            if ($currentsitecolorclass) {
+                $additionalclasses[] = $currentsitecolorclass;
+            }
+        }
+
+        $fonttype = get_user_preferences('themecul_moovesettings_fonttype', '');
+        if ($fonttype) {
+            $additionalclasses[] = $fonttype;
+        }
+
+        if (!is_array($additionalclasses)) {
+            $additionalclasses = explode(' ', $additionalclasses);
+        }
+
+        return ' id="'. $this->body_id().'" class="'.$this->body_css_classes($additionalclasses).'"';
+    }
+
+    /**
      * Whether we should display the main theme or site logo in the navbar.
      *
      * @return bool
@@ -281,7 +320,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $html = html_writer::start_div('page-context-header');
 
         // Image data.
-        //if (isset($contextheader->imagedata)) {
         if ($this->get_theme_logo_url()) {
             // Header specific image.
             $img = html_writer::link(new moodle_url('/'),
@@ -291,6 +329,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 array('title' => get_string('home')));
             $html .= html_writer::div($img, 'page-header-image mr-2');
         } else {
+
             // Headings.
             if (isset($contextheader->prefix)) {
                 $prefix = html_writer::div($contextheader->prefix, 'text-muted text-uppercase small line-height-3');
@@ -442,7 +481,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      *
      * @return string HTML fragment.
      */
-    public function debug_footer_html() {
+public function debug_footer_html() {
         global $CFG, $SCRIPT;
         $output = '';
 
@@ -451,9 +490,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return $output;
         }
 
-        // This function is normally called from a layout.php file
-        // but some of the content won't be known until later, so we return a placeholder
-        // for now. This will be replaced with the real content in the footer.
         $output .= $this->unique_performance_info_token;
 
         if (!empty($CFG->debugpageinfo)) {
@@ -490,9 +526,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $output .= html_writer::div($validatorlinkslist, 'validators');
         }
         $theme = theme_config::load('cul_moove');
-
+ 
         $output .= $theme->settings->footer . '</div>' . $theme->settings->footerbottom;
-        return $output;
+        return $output;    
     }
 
 }

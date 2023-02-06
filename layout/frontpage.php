@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Frontpage layout for the moove theme.
+ * Frontpage layout for the cul_moove theme.
  *
- * @package    theme_moove
+ * @package    theme_cul_moove
  * @copyright  2022 Willian Mano {@link https://conecti.me}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -115,14 +115,14 @@ $templatecontext = [
     'addblockbutton' => $addblockbutton
 ];
 
-$themesettings = new \theme_moove\util\settings();
+$themesettings = new \theme_cul_moove\util\settings();
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
 
 if (isloggedin()) {
-    echo $OUTPUT->render_from_template('theme_moove/drawers', $templatecontext);
+    echo $OUTPUT->render_from_template('theme_cul_moove/drawers', $templatecontext);
 } else {
     $templatecontext = array_merge($templatecontext, $themesettings->frontpage());
 
-    echo $OUTPUT->render_from_template('theme_moove/frontpage', $templatecontext);
+    echo $OUTPUT->render_from_template('theme_cul_moove/frontpage', $templatecontext);
 }

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme City block settings file
+ * Theme cul_moove block settings file
  *
  * @package    theme_cul_moove
  * @copyright 2022 City University - https://www.city.ac.uk/
@@ -47,9 +47,8 @@ if ($ADMIN->fulltree) {
     $opts = array('accepted_types' => array('.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'), 'maxfiles' => 1);
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo', 0, $opts);
     $page->add($setting);
-    
+
     //Institution themes.
-    // Google analytics block.
     $name = 'theme_cul_moove/institutions';
     $title = get_string('institutions', 'theme_cul_moove');
     $description = get_string('institutionsdesc', 'theme_cul_moove');
@@ -62,9 +61,10 @@ if ($ADMIN->fulltree) {
         $inst_options = [];
         $institutions = explode(',', $inst);
         foreach($institutions as $key => $ins) {
+            $file_ins = strtolower($ins);
             if ($DB->record_exists('user', ['institution' => strtoupper($ins)])) {
-                $setting = new admin_setting_configstoredfile('theme_cul_moove/'.$ins, "$ins logo", "Logo for the $ins institution", 
-                        $ins, 0, $opts);
+                $setting = new admin_setting_configstoredfile('theme_cul_moove/'.$file_ins, "$file_ins logo", "Logo for the $file_ins institution", 
+                        $file_ins, 0, $opts);
                 $page->add($setting);
             }
         }
@@ -285,7 +285,7 @@ if ($ADMIN->fulltree) {
         // Marketingcontent.
         $name = 'theme_cul_moove/marketingcontent';
         $title = get_string('marketingsectioncontent', 'theme_cul_moove');
-        $default = 'City is a Moodle template based on Boost with modern and creative design.';
+        $default = 'cul_moove is a Moodle template based on Boost with modern and creative design.';
         $setting = new admin_setting_confightmleditor($name, $title, '', $default);
         $page->add($setting);
 
@@ -375,7 +375,7 @@ if ($ADMIN->fulltree) {
     $page = new admin_settingpage('theme_cul_moove_footer', get_string('footersettings', 'theme_cul_moove'));
 
     // Website.
-    $name = 'theme_cul_moove/website';
+    /*$name = 'theme_cul_moove/website';
     $title = get_string('website', 'theme_cul_moove');
     $description = get_string('websitedesc', 'theme_cul_moove');
     $setting = new admin_setting_configtext($name, $title, $description, '');
@@ -442,16 +442,13 @@ if ($ADMIN->fulltree) {
     $title = get_string('telegram', 'theme_cul_moove');
     $description = get_string('telegramdesc', 'theme_cul_moove');
     $setting = new admin_setting_configtext($name, $title, $description, '');
-    $page->add($setting);
-    
-    $setting = new admin_setting_heading('cityfooter', 'Settings for Footer', '');
-    $page->add($setting);
-    
-    $setting = new admin_setting_confightmleditor('theme_cul_moove/footer', 'Footer text', 'Text for the top of the footer', '');
-    $page->add($setting);
-    
-    $setting = new admin_setting_confightmleditor('theme_cul_moove/footerbottom', 'Footer bottom text', 'Text for the bottom of the footer', '');
-    $page->add($setting);
+    $page->add($setting);*/
 
-    $settings->add($page);
+    $setting = new admin_setting_confightmleditor('theme_cul_moove/footer', 'Footer text', 'Text for the top of the footer', '');
+   
+    $page->add($setting);
+       $setting = new admin_setting_confightmleditor('theme_cul_moove/footerbottom', 'Footer bottom text', 'Text for the bottom of the footer', '');
+    $page->add($setting);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($page); 
 }

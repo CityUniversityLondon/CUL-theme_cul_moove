@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * A drawer based layout for the moove theme.
+ * A drawer based layout for the cul_moove theme.
  *
- * @package    theme_moove
+ * @package    theme_cul_moove
  * @copyright  2022 Willian Mano {@link https://conecti.me}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -61,7 +61,7 @@ if (!$hasblocks) {
     $blockdraweropen = false;
 }
 
-$themesettings = new \theme_moove\util\settings();
+$themesettings = new \theme_cul_moove\util\settings();
 
 if (!$themesettings->enablecourseindex) {
     $courseindex = '';
@@ -144,4 +144,4 @@ $templatecontext = [
 $templatecontext = array_merge($templatecontext, $themesettings->footer(), (array)$dashboard);
 //print_object($themesettings->footer());
 //print_object((array)$dashboard);
-echo $OUTPUT->render_from_template('theme_moove/course', $templatecontext);
+echo $OUTPUT->render_from_template('theme_cul_moove/course', $templatecontext);
