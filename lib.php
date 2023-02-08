@@ -176,3 +176,28 @@ function theme_cul_moove_pluginfile($course, $cm, $context, $filearea, $args, $f
 
     send_file_not_found();
 }
+
+function theme_cul_moove_extend_settings_navigation($settingsnav, $context){
+    $addnode = $addnode && has_capability('gradereport/culuser:view', $context);
+    if ($addnode) {
+        $id = $context->instanceid;
+        $urltext = 'asdfdsfdsfdf';//get_string('gradereportlink', 'myplugin');
+        $url = new moodle_url('/grade/report/culuser/index.php',[
+            'id' => $id,
+        ]);
+        // Find the course settings node using the 'courseadmin' key.
+        $coursesettingsnode = $settingsnav->find('courseadmin', null);
+        print_object($coursesettingsnode);exit;
+        $node = $coursesettingsnode->create(
+            $urltext,
+            $url,
+            navigation_node::NODETYPE_LEAF,
+            null,
+            'culuser',
+            new pix_icon('i/report', 'grades')
+        );
+
+        // Add the new node _before_ the 'grades' node.
+        $coursesettingsnode->add_node($node, 'grades');
+    }
+}

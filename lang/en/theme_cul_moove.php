@@ -176,3 +176,9 @@ $string['privacy:accessibilitystyles_fontsizeclass'] = 'The current preference f
 $string['privacy:accessibilitystyles_sitecolorclass'] = 'The current preference for the site color is: {$a}.';
 $string['privacy:themecul_moovesettings_fonttype'] = 'The current preference for the font type is: {$a}.';
 $string['privacy:themecul_moovesettings_enableaccessibilitytoolbar'] = 'The current preference for enable accessibility toolbar is to show it.';
+
+// Show course
+$string['coursehidden'] = 'Module is hidden';
+$string['showcourse'] = 'Show Module';
+$string['confirmshowcourse'] = 'Are you sure you want to make this module visible to students?';
+$string['courseshown'] = 'Module is now visible to students';

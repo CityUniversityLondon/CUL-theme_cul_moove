@@ -327,7 +327,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 'src' => $this->get_theme_logo_url(),
                 'alt' => get_string('home'))),
                 array('title' => get_string('home')));
-            $html .= html_writer::div($img, 'page-header-image mr-2');
+            $html .= html_writer::div($img, 'page-header-image mr-2');            
         } else {
 
             // Headings.
@@ -527,8 +527,45 @@ public function debug_footer_html() {
         }
         $theme = theme_config::load('cul_moove');
  
-        $output .= $theme->settings->footer . '</div>' . $theme->settings->footerbottom;
+        $output .= $theme->settings->footer . '</div>' . $theme->settings->footerbottom .
+                "<script>
+                                $( document ).ready(function() {
+                                    var url = window.location.search.substring(1);
+                                    var id = url.substring(url.lastIndexOf('=') + 1);
+                                    $('.moremenu.navigation [data-key=\"grades\"] a').attr(\"href\", \"/grade/report/culuser/index.php?id=\" + id);
+                                });
+                                </script>"
+                                ;
         return $output;    
+    }
+    
+    /**
+     * Returns a button to make a hidden course visible.
+     *
+     * @return string the HTML to be output.
+     */
+    public function show_course_button() {
+
+        global $COURSE, $OUTPUT;
+
+        $content = '';
+        $coursecontext = context_course::instance($COURSE->id);
+
+        if (!has_capability('moodle/course:update', $coursecontext)) {
+            return $content;
+        }        
+
+        $showcourseurl = new moodle_url(
+            '/theme/cul_moove/unhide_post.php', 
+            [
+                'cid' => $COURSE->id,
+                'sesskey' => sesskey()
+            ]
+        );
+
+        $showcoursetxt = get_string('showcourse', 'theme_cul_moove');       
+
+        return $OUTPUT->single_button($showcourseurl, $showcoursetxt, 'post', ['class' => 'showcourse d-inline-block ml-4']);
     }
 
 }

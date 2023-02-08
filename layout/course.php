@@ -103,19 +103,9 @@ $regionmainsettingsmenu = $buildregionmainsettings ? $OUTPUT->region_main_settin
 $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
 
-$dashrenderclass = "local_culcourse_dashboard\output\dashboard";
 global $DB,$COURSE;
-        if (class_exists($dashrenderclass)) {
-            $course = $COURSE;
-            $config = course_get_format($course)->get_format_options();
-            $dashboard = new $dashrenderclass($course, $displaysection=null, $config); 
-            $dashboard->delitesting = 'What is going on boy';
-            $dashboard->quicklinksexist = 1;
-            $dashboard->activitiesexist = 1;           
-            }
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
-//$OUTPUT->course_content_header = "<h1>WHEN IS THIS THING IS GOING TO DO NO!!!!!! - COURSE OUT</h1>";
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
@@ -138,10 +128,10 @@ $templatecontext = [
     'addblockbutton' => $addblockbutton,
     'enablecourseindex' => $themesettings->enablecourseindex,
     'addcontentblockbutton' => $addcontentblockbutton,
-    'contentblocks' => $contentblocks
+    'contentblocks' => $contentblocks,
+    'iscoursevisible' => $COURSE->visible
 ];
 
-$templatecontext = array_merge($templatecontext, $themesettings->footer(), (array)$dashboard);
-//print_object($themesettings->footer());
-//print_object((array)$dashboard);
+$templatecontext = array_merge($templatecontext, $themesettings->footer());
+
 echo $OUTPUT->render_from_template('theme_cul_moove/course', $templatecontext);

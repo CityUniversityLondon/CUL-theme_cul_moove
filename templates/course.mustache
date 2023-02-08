@@ -137,7 +137,14 @@
                     </div>
                 {{/hasblocks}}
             </div>
-
+            {{! Show course button }}
+            {{! # iscourse }}
+            {{^ iscoursevisible }}
+            <h2 class="module-hidden p-3 bg-light mb-4 text-center">
+                {{#str}}coursehidden, theme_cul_moove{{/str}}
+                {{{ output.show_course_button }}}
+            </h2>
+            {{/ iscoursevisible }}
             <div id="page-content" class="d-print-block">
                 <div id="region-main-box">
                     {{#hasregionmainsettingsmenu}}
@@ -145,6 +152,7 @@
                         <div> {{{ regionmainsettingsmenu }}} </div>
                     </div>
                     {{/hasregionmainsettingsmenu}}
+
                     <section id="region-main" aria-label="{{#str}}content{{/str}}">
                         {{#hasregionmainsettingsmenu}}
                             <div class="region_main_settings_menu_proxy"></div>
