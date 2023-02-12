@@ -172,7 +172,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $DB, $USER;
         $inst = strtolower($DB->get_field('user', 'institution', ['id' => $USER->id]));
         $theme = theme_config::load('cul_moove');
-        if ($inst && isset($theme->settings->{$inst})) {
+        if ($inst && isset($theme->settings->$inst)) {
             return $theme->setting_file_url($inst, $inst);
         }
         return $theme->setting_file_url('logo', 'logo');
@@ -201,7 +201,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $DB, $USER;
         $inst = strtolower($DB->get_field('user', 'institution', ['id' => $USER->id]));
         $theme = theme_config::load('cul_moove');
-        if ($inst && isset($theme->settings->{$inst})) {
+        if ($inst && isset($theme->settings->$inst)) {
             return $theme->setting_file_url($inst, $inst);
         }
         return $theme->setting_file_url('logo', 'logo');
@@ -527,15 +527,7 @@ public function debug_footer_html() {
         }
         $theme = theme_config::load('cul_moove');
  
-        $output .= $theme->settings->footer . '</div>' . $theme->settings->footerbottom .
-                "<script>
-                                $( document ).ready(function() {
-                                    var url = window.location.search.substring(1);
-                                    var id = url.substring(url.lastIndexOf('=') + 1);
-                                    $('.moremenu.navigation [data-key=\"grades\"] a').attr(\"href\", \"/grade/report/culuser/index.php?id=\" + id);
-                                });
-                                </script>"
-                                ;
+        $output .= $theme->settings->footer . '</div>' . $theme->settings->footerbottom;
         return $output;    
     }
     

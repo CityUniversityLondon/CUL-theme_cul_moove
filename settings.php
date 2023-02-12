@@ -62,11 +62,11 @@ if ($ADMIN->fulltree) {
         $institutions = explode(',', $inst);
         foreach($institutions as $key => $ins) {
             $file_ins = strtolower($ins);
-            if ($DB->record_exists('user', ['institution' => strtoupper($ins)])) {
+            //if ($DB->record_exists('user', ['institution' => strtoupper($ins)])) {
                 $setting = new admin_setting_configstoredfile('theme_cul_moove/'.$file_ins, "$file_ins logo", "Logo for the $file_ins institution", 
                         $file_ins, 0, $opts);
                 $page->add($setting);
-            }
+            //}
         }
     }
 

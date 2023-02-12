@@ -191,4 +191,7 @@ require(['theme_boost/loader', 'theme_boost/drawer'], function(Loader, Drawer) {
     Drawer.init();
     M.util.js_complete('theme_boost/loader');
 });
+var url = window.location.search.substring(1);
+var id = url.substring(url.lastIndexOf('=') + 1);
+$('.moremenu.navigation [data-key="grades"] a').attr("href", "/grade/report/culuser/index.php?id=" + id);
 {{/js}}

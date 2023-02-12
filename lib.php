@@ -143,10 +143,14 @@ function theme_cul_moove_get_precompiled_css() {
  */
 function theme_cul_moove_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
     $theme = theme_config::load('cul_moove');
-
+    $inst = $theme->institutions;
+    if ($inst) {
+        $institutions = explode(',', $inst);
+    } else {
+        $institutions = [];
+    }
     if ($context->contextlevel == CONTEXT_SYSTEM &&
-        ($filearea === 'logo' || $filearea === 'loginbgimg' || $filearea == 'favicon' || isset($theme->settings->{$filearea}))) {
-        $theme = theme_config::load('cul_moove');
+        ($filearea === 'logo' || $filearea === 'loginbgimg' || $filearea == 'favicon' || in_array($filearea, $institutions))) {
         // By default, theme files must be cache-able by both browsers and proxies.
         if (!array_key_exists('cacheability', $options)) {
             $options['cacheability'] = 'public';
@@ -175,29 +179,4 @@ function theme_cul_moove_pluginfile($course, $cm, $context, $filearea, $args, $f
     }
 
     send_file_not_found();
-}
-
-function theme_cul_moove_extend_settings_navigation($settingsnav, $context){
-    $addnode = $addnode && has_capability('gradereport/culuser:view', $context);
-    if ($addnode) {
-        $id = $context->instanceid;
-        $urltext = 'asdfdsfdsfdf';//get_string('gradereportlink', 'myplugin');
-        $url = new moodle_url('/grade/report/culuser/index.php',[
-            'id' => $id,
-        ]);
-        // Find the course settings node using the 'courseadmin' key.
-        $coursesettingsnode = $settingsnav->find('courseadmin', null);
-        print_object($coursesettingsnode);exit;
-        $node = $coursesettingsnode->create(
-            $urltext,
-            $url,
-            navigation_node::NODETYPE_LEAF,
-            null,
-            'culuser',
-            new pix_icon('i/report', 'grades')
-        );
-
-        // Add the new node _before_ the 'grades' node.
-        $coursesettingsnode->add_node($node, 'grades');
-    }
 }
