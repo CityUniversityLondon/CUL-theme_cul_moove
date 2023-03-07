@@ -41,7 +41,7 @@ if ($ADMIN->fulltree) {
     $page = new admin_settingpage('theme_cul_moove_general', get_string('generalsettings', 'theme_cul_moove'));
 
     // Logo file setting.
-    $name = 'theme_cul_moove/logo';
+    $name = 'theme_cul_moove/cullogo';
     $title = get_string('logo', 'theme_cul_moove');
     $description = get_string('logodesc', 'theme_cul_moove');
     $opts = array('accepted_types' => array('.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'), 'maxfiles' => 1);

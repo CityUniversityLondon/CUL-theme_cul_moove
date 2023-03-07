@@ -106,6 +106,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
         }
 
+        if (has_capability('mod/assign:submit', context_course::instance($this->page->course->id),null,false)) {
+            $additionalclasses[] = 'student';
+        }
+
         $fonttype = get_user_preferences('themecul_moovesettings_fonttype', '');
         if ($fonttype) {
             $additionalclasses[] = $fonttype;
@@ -175,7 +179,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if ($inst && isset($theme->settings->$inst)) {
             return $theme->setting_file_url($inst, $inst);
         }
-        return $theme->setting_file_url('logo', 'logo');
+        return $theme->setting_file_url('cullogo', 'logo');
     }
 
     /**
@@ -204,7 +208,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if ($inst && isset($theme->settings->$inst)) {
             return $theme->setting_file_url($inst, $inst);
         }
-        return $theme->setting_file_url('logo', 'logo');
+        return $theme->setting_file_url('cullogo', 'logo');
     }
 
     /**
@@ -320,7 +324,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $html = html_writer::start_div('page-context-header');
 
         // Image data.
-        if ($this->get_theme_logo_url()) {
+        /*if ($this->get_theme_logo_url()) {
             // Header specific image.
             $img = html_writer::link(new moodle_url('/'),
                 html_writer::empty_tag('img', array(
@@ -328,7 +332,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 'alt' => get_string('home'))),
                 array('title' => get_string('home')));
             $html .= html_writer::div($img, 'page-header-image mr-2');            
-        } else {
+        } else {*/
 
             // Headings.
             if (isset($contextheader->prefix)) {
@@ -336,7 +340,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $heading = $prefix . $heading;
             }
             $html .= html_writer::tag('div', $heading, array('class' => 'page-header-headings'));
-        }
+        //}
 
         // Buttons.
         if (isset($contextheader->additionalbuttons)) {
