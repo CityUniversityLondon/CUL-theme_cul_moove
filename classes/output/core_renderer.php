@@ -176,7 +176,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $DB, $USER;
         $inst = strtolower($DB->get_field('user', 'institution', ['id' => $USER->id]));
         $theme = theme_config::load('cul_moove');
-        if ($inst && isset($theme->settings->$inst)) {
+        if ($inst && isset($theme->settings->$inst) && $theme->settings->$inst) {
             return $theme->setting_file_url($inst, $inst);
         }
         return $theme->setting_file_url('cullogo', 'logo');
@@ -190,22 +190,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return moodle_url|false
      */
     public function get_compact_logo_url($maxwidth = 300, $maxheight = 300) {
-        /*global $CFG;
-        $logo = get_config('core_admin', 'logocompact');
-        if (empty($logo)) {
-            return false;
-        }
-
-        // Hide the requested size in the file path.
-        $filepath = ((int) $maxwidth . 'x' . (int) $maxheight) . '/';
-
-        // Use $CFG->themerev to prevent browser caching when the file changes.
-        return moodle_url::make_pluginfile_url(context_system::instance()->id, 'core_admin', 'logocompact', $filepath,
-            theme_get_revision(), $logo);*/
         global $DB, $USER;
         $inst = strtolower($DB->get_field('user', 'institution', ['id' => $USER->id]));
         $theme = theme_config::load('cul_moove');
-        if ($inst && isset($theme->settings->$inst)) {
+        if ($inst && isset($theme->settings->$inst) && $theme->settings->$inst) {
             return $theme->setting_file_url($inst, $inst);
         }
         return $theme->setting_file_url('cullogo', 'logo');
