@@ -598,4 +598,15 @@ public function debug_footer_html() {
         return $OUTPUT->single_button($showcourseurl, $showcoursetxt, 'post', ['class' => 'showcourse d-inline-block ml-4']);
     }
 
+    /**
+     * Returns the services and support link for the help pop-up.
+     *
+     * @return string
+     */
+    public function services_support_link(): string {
+        global $CFG;
+
+        return $CFG->showservicesandsupportcontent ?: '';
+    }
+
 }
