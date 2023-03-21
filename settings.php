@@ -168,6 +168,37 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
+    $name = 'theme_cul_moove/customfield';
+    $title = get_string('customfield', 'theme_cul_moove');
+    $description = get_string('customfield_desc', 'theme_cul_moove');
+    $default = 'academicyear';
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $page->add($setting);
+
+    $name = 'theme_cul_moove/includeaccyearsfrom';
+    $title = get_string('includeaccyearsfrom', 'theme_cul_moove');
+    $description = get_string('includeaccyearsfrom_desc', 'theme_cul_moove');
+    $default = date('y') - 1;
+    $choices = [];
+    $year = date('y');
+    for($i=20;$i<=$year;$i++) {
+        $choices[$i] = $i;
+    }
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
+    $name = 'theme_cul_moove/includeaccyearsto';
+    $title = get_string('includeaccyearsto', 'theme_cul_moove');
+    $description = get_string('includeaccyearsto_desc', 'theme_cul_moove');
+    $default = date('y') + 2;
+    $choices = [];
+    $year = date('y');
+    for($i=$year;$i<=$default;$i++) {
+        $choices[$i] = $i;
+    }
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
     // Must add the page after definiting all the settings!
     $settings->add($page);
 

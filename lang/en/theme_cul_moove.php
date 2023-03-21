@@ -182,3 +182,12 @@ $string['coursehidden'] = 'Module is hidden';
 $string['showcourse'] = 'Show Module';
 $string['confirmshowcourse'] = 'Are you sure you want to make this module visible to students?';
 $string['courseshown'] = 'Module is now visible to students';
+
+// Block overview custom field filter
+$string['customfield'] = 'Academic year custom field';
+$string['customfield_desc'] = 'The name of the custom field used for the academic year in my overview block';
+$string['academicyeartask'] = 'Adding academicyear custom field task';
+$string['includeaccyearsfrom'] = 'Academic year from';
+$string['includeaccyearsfrom_desc'] = 'The options which you can select the academic year from, in the my overview block';
+$string['includeaccyearsto'] = 'Academic year to';
+$string['includeaccyearsto_desc'] = 'The options which you can select the academic year to, in the my overview block';
