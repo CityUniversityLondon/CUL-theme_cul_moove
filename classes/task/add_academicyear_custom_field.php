@@ -64,7 +64,7 @@ class add_academicyear_custom_field extends \core\task\scheduled_task {
                     $customdata->timemodified = time();
                     $DB->update_record('customfield_data', $customdata);
                 } else {
-                    $newrecord = new stdClass();
+                    $newrecord = new \stdClass();
                     $newrecord->fieldid = $customfield;
                     $newrecord->instanceid = $k;
                     $newrecord->charvalue = $shortname;
