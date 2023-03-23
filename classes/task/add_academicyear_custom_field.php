@@ -72,7 +72,7 @@ class add_academicyear_custom_field extends \core\task\scheduled_task {
                     $newrecord->valueformat = 0;
                     $newrecord->timecreated = time();
                     $newrecord->timemodified = time();
-                    $newrecord->contextid = context_course::instance($k)->id;
+                    $newrecord->contextid = \context_course::instance($k)->id;
                     $DB->insert_record('customfield_data', $newrecord);
                 }
             }
