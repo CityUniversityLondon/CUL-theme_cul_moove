@@ -480,8 +480,6 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
        $setting = new admin_setting_confightmleditor('theme_cul_moove/footerbottom', 'Footer bottom text', 'Text for the bottom of the footer', '');
     $page->add($setting);
-    $setting = new admin_setting_confightmleditor('showservicesandsupportcontent', 'Services and support', 'This is information for the popover help button (?)', '');
-    $page->add($setting);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($page); 
 }

@@ -250,7 +250,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $CFG;
 
         $label = get_string('contactsitesupport', 'admin');
-        $icon = $this->pix_icon('t/life-ring', '', 'moodle', ['class' => 'iconhelp icon-pre']);
+        $icon = $this->pix_icon('t/email', '', 'moodle', ['class' => 'iconhelp icon-pre']);
         $content = $icon . $label;
 
         if (!empty($CFG->supportpage)) {
@@ -596,17 +596,6 @@ public function debug_footer_html() {
         $showcoursetxt = get_string('showcourse', 'theme_cul_moove');       
 
         return $OUTPUT->single_button($showcourseurl, $showcoursetxt, 'post', ['class' => 'showcourse d-inline-block ml-4']);
-    }
-
-    /**
-     * Returns the services and support link for the help pop-up.
-     *
-     * @return string
-     */
-    public function services_support_link(): string {
-        global $CFG;
-
-        return $CFG->showservicesandsupportcontent ?: '';
     }
 
 }

@@ -47,16 +47,26 @@
                 {{# output.services_support_link }}
                 <div>{{{ output.services_support_link }}}</div>
                 {{/ output.services_support_link }}
+                {{# output.supportemail }}
+                    <div class="footer-support-link">{{{ output.supportemail }}}</div>
+                {{/ output.supportemail }}
             </div>
             {{/ output.has_popover_links }}
-            <div class="footer-section p-3">
+            <div class="footer-section p-3 border-bottom">
+                <div class="logininfo">
+                    {{{ output.login_info }}}
+                </div>
+                <div class="tool_usertours-resettourcontainer">
+                </div>
+            </div>
+            <!--<div class="footer-section p-3">
                 <div>{{#str}}poweredbymoodle, core{{/str}}</div>
                 {{#output.moodle_release}}
                 <div>
                     {{#str}}version, core{{/str}} {{{ output.moodle_release }}}
                 </div>
                 {{/output.moodle_release}}
-            </div>
+            </div> -->
         </div>
         <!--<div class="copyright">
             <div class="madeby">
