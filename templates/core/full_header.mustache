@@ -31,14 +31,14 @@
 }}
 <header id="page-header" class="cul_moove-container-fluid">
     <div class="d-flex flex-wrap">
-        {{#hasnavbar}}
+       <!-- {{#hasnavbar}}
             <div id="page-navbar">
-            {{#culincourse}}
+            <!-- {{#culincourse}}
             <div id="additional-cul-heading">{{{culcontextheader}}}</div>
             {{/culincourse}}
                 {{{navbar}}}
             </div>
-        {{/hasnavbar}}
+        {{/hasnavbar}}-->
         <div class="ml-auto d-flex">
             {{{pageheadingbutton}}}
         </div>
@@ -46,12 +46,11 @@
             {{{courseheader}}}
         </div>
     </div>
-    <div id="below-secondary-nav" class="d-sm-flex align-items-center">
+    <div class="d-sm-flex align-items-center">
         {{^welcomemessage}}
             {{#contextheader}}
-                <div class="mr-auto"><div style="display:flex;">
-               {{{culicon}}}
-                    {{{contextheader}}}</div>
+                <div class="mr-auto">
+                    {{{contextheader}}}
                 </div>
             {{/contextheader}}
         {{/welcomemessage}}
@@ -61,5 +60,10 @@
                 <div class="header-action ml-2">{{{.}}}</div>
             {{/headeractions}}
         </div>
+        {{#hasnavbar}}
+            <div class="d-none d-md-block" id="page-navbar">
+                {{{navbar}}}
+            </div>
+        {{/hasnavbar}}
     </div>
 </header>

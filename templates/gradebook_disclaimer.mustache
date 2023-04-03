@@ -15,17 +15,11 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template block_myoverview/progress-bar
-
-    This template renders a simple progress bar.
-
-    Example context (json):
-    {
-        "progress": 50
-    }
+    Gradebook disclaimer.
 }}
-<div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" style="width: {{progress}}%" aria-valuemin="0" aria-valuemax="{{progress}}"></div>
-</div>
 
-<p class="mb-0">{{#str}}completepercent, block_myoverview, {{progress}}{{/str}}</p>
+<div class="alert alert-warning" role="note">
+    <p>
+        {{#str}}gradebookdisclaimer, theme_cul_moove{{/str}}
+    </p>
+</div>

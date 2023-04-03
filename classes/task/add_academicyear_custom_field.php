@@ -29,7 +29,7 @@ namespace theme_cul_moove\task;
 
 /**
  * A scheduled task to add academic year custom field to courses.
- * /usr/bin/php admin/tool/task/cli/schedule_task.php --execute=\\theme_cul_moove\\task\\add_academicyear_custom_field
+ * /usr/bin/php admin/cli/scheduled_task.php --execute=\\theme_cul_moove\\task\\add_academicyear_custom_field
  */
 class add_academicyear_custom_field extends \core\task\scheduled_task {
 

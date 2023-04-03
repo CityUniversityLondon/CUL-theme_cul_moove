@@ -103,7 +103,6 @@
         {{{ output.edit_switch }}}
     </div>
 </nav>
-
 {{#secondarymoremenu}}
     <div class="secondary-navigation d-print-none cul_moove">
         <div class="cul_moove-container-fluid">
@@ -111,5 +110,7 @@
         </div>
     </div>
 {{/secondarymoremenu}}
-
 {{> theme_cul_moove/primary-drawer-mobile }}
+{{# output.gradebook_disclaimer }}
+        {{> theme_cul_moove/gradebook_disclaimer }}
+{{/ output.gradebook_disclaimer }}

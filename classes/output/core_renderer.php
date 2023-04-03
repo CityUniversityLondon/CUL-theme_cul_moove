@@ -362,7 +362,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         return $html;
     }
-
+    
     /**
      * Wrapper for header elements.
      *
@@ -596,6 +596,26 @@ public function debug_footer_html() {
         $showcoursetxt = get_string('showcourse', 'theme_cul_moove');       
 
         return $OUTPUT->single_button($showcourseurl, $showcoursetxt, 'post', ['class' => 'showcourse d-inline-block ml-4']);
+    }
+    
+    /**
+     * Checks if page requires gradebook discalimer.
+     *
+     * @return bool true if page requires discalimer.
+     */ 
+    public function gradebook_disclaimer() {
+        $gradebookids = array (
+            'page-grade-report-user-index',
+            'page-grade-report-culuser-index',
+            'page-grade-report-overview-index',
+            //'page-course-user'
+        );
+
+        if (in_array($this->page->bodyid, $gradebookids)) {
+            return true;
+        }
+
+        return false;
     }
 
 }

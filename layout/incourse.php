@@ -100,7 +100,6 @@ $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
-$OUTPUT->course_content_header = "<h1>WHEN IS THIS THING IS GOING TO DO NO!!!!!!</h1>";
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
@@ -120,7 +119,8 @@ $templatecontext = [
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
     'overflow' => $overflow,
     'headercontent' => $headercontent,
-    'addblockbutton' => $addblockbutton
+    'addblockbutton' => $addblockbutton,
+    'isgradebookdisclaimer' => $OUTPUT->gradebook_disclaimer()
 ];
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
