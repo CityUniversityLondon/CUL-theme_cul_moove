@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -39,6 +40,7 @@ use theme_cul_moove\output\core_course\activity_navigation;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class core_renderer extends \theme_boost\output\core_renderer {
+
     /**
      * The standard tags (meta tags, links to stylesheets and JavaScript, etc.)
      * that should be included in the <head> tag. Designed to be called in theme
@@ -73,8 +75,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $output .= '<link rel="preconnect" href="https://fonts.googleapis.com">
                        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                        <link href="https://fonts.googleapis.com/css2?family='
-                        . $sitefont .
-                       ':ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">';
+                . $sitefont .
+                ':ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">';
 
         return $output;
     }
@@ -106,7 +108,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
         }
 
-        if (has_capability('mod/assign:submit', context_course::instance($this->page->course->id),null,false)) {
+        if (has_capability('mod/assign:submit', context_course::instance($this->page->course->id), null, false)) {
             $additionalclasses[] = 'student';
         }
 
@@ -119,7 +121,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $additionalclasses = explode(' ', $additionalclasses);
         }
 
-        return ' id="'. $this->body_id().'" class="'.$this->body_css_classes($additionalclasses).'"';
+        return ' id="' . $this->body_id() . '" class="' . $this->body_css_classes($additionalclasses) . '"';
     }
 
     /**
@@ -212,8 +214,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         $context->errorformatted = $this->error_text($context->error);
         $context->logourl = $this->get_logo();
-        $context->sitename = format_string($SITE->fullname, true,
-            ['context' => context_course::instance(SITEID), "escape" => false]);
+        $context->sitename = format_string($SITE->fullname, true, ['context' => context_course::instance(SITEID), "escape" => false]);
 
         if (!$CFG->auth_instructions) {
             $context->instructions = null;
@@ -312,24 +313,17 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $html = html_writer::start_div('page-context-header');
 
         // Image data.
-        /*if ($this->get_theme_logo_url()) {
-          if (isset($contextheader->imagedata)) {
+        if (isset($contextheader->imagedata)) {
             // Header specific image.
-            $img = html_writer::link(new moodle_url('/'),
-                html_writer::empty_tag('img', array(
-                'src' => $this->get_theme_logo_url(),
-                'alt' => get_string('home'))),
-                array('title' => get_string('home')));
-            $html .= html_writer::div($img, 'page-header-image mr-2');            
-        } else {*/
+            $html .= html_writer::div($contextheader->imagedata, 'page-header-image mr-2');
+        }
 
-            // Headings.
-            if (isset($contextheader->prefix)) {
-                $prefix = html_writer::div($contextheader->prefix, 'text-muted text-uppercase small line-height-3');
-                $heading = $prefix . $heading;
-            }
-            $html .= html_writer::tag('div', $heading, array('class' => 'page-header-headings'));
-        //}
+        // Headings.
+        if (isset($contextheader->prefix)) {
+            $prefix = html_writer::div($contextheader->prefix, 'text-muted text-uppercase small line-height-3');
+            $heading = $prefix . $heading;
+        }
+        $html .= html_writer::tag('div', $heading, array('class' => 'page-header-headings'));
 
         // Buttons.
         if (isset($contextheader->additionalbuttons)) {
@@ -350,8 +344,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     $image .= html_writer::span($button['title'], 'header-button-title');
                 } else {
                     $image = html_writer::empty_tag('img', array(
-                        'src' => $button['formattedimage'],
-                        'role' => 'presentation'
+                                'src' => $button['formattedimage'],
+                                'role' => 'presentation'
                     ));
                 }
                 $html .= html_writer::link($button['url'], html_writer::tag('span', $image), $button['linkattributes']);
@@ -362,13 +356,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         return $html;
     }
-    
+
     /**
      * Wrapper for header elements.
      *
      * @return string HTML to display the main header.
      */
-    public function full_header() {
+     public function full_header() {
         $pagetype = $this->page->pagetype;
         $homepage = get_home_page();
         $homepagetype = null;
@@ -384,9 +378,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             // the settings block on it. The region main settings are included in the settings block and
             // duplicating the content causes behat failures.
             $this->page->add_header_action(html_writer::div(
-                $this->region_main_settings_menu(),
-                'd-print-none',
-                ['id' => 'region-main-settings-menu']
+                            $this->region_main_settings_menu(), 'd-print-none', ['id' => 'region-main-settings-menu']
             ));
         }
 
@@ -396,9 +388,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $header->hasnavbar = empty($this->page->layout_options['nonavbar']);
         $header->navbar = $this->navbar();
         $header->culincourse = isset($this->page->cm->id) ? 1 : 0;
-        $header->culicon =  isset($this->page->cm->id) ? html_writer::img($this->page->cm->get_icon_url()->out(false), '',
-                    ['class' => 'icon activityicon', 'aria-hidden' => 'true']) : '';
-        $header->culcontextheader =  $this->heading($this->page->heading,2, 'h2');
+        $header->coursemainpage = $pagetype == 'course-view-culcourse' ? 1 : 0;
+        //$header->culicon = isset($this->page->cm->id) ? html_writer::img($this->page->cm->get_icon_url()->out(false), '', ['class' => 'icon activityicon', 'aria-hidden' => 'true']) : '';
+        $header->culcontextheader = $this->heading($this->page->heading, 2, 'h2');
         $header->pageheadingbutton = $this->page_heading_button();
         $header->courseheader = $this->course_header();
         $header->headeractions = $this->page->get_header_actions();
@@ -416,8 +408,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function activity_navigation() {
         // First we should check if we want to add navigation.
         $context = $this->page->context;
-        if (($this->page->pagelayout !== 'incourse' && $this->page->pagelayout !== 'frametop')
-            || $context->contextlevel != CONTEXT_MODULE) {
+        if (($this->page->pagelayout !== 'incourse' && $this->page->pagelayout !== 'frametop') || $context->contextlevel != CONTEXT_MODULE) {
             return '';
         }
 
@@ -519,7 +510,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      *
      * @return string HTML fragment.
      */
-public function debug_footer_html() {
+    public function debug_footer_html() {
         global $CFG, $SCRIPT;
         $output = '';
 
@@ -531,17 +522,15 @@ public function debug_footer_html() {
         $output .= $this->unique_performance_info_token;
 
         if (!empty($CFG->debugpageinfo)) {
-            $output .= '<div class="performanceinfo pageinfo">' . get_string('pageinfodebugsummary', 'core_admin',
-                $this->page->debug_summary()) . '</div>';
+            $output .= '<div class="performanceinfo pageinfo">' . get_string('pageinfodebugsummary', 'core_admin', $this->page->debug_summary()) . '</div>';
         }
         if (debugging(null, DEBUG_DEVELOPER) and has_capability('moodle/site:config', \context_system::instance())) {  // Only in developer mode
-
             // Add link to profiling report if necessary
             if (function_exists('profiling_is_running') && profiling_is_running()) {
                 $txt = get_string('profiledscript', 'admin');
                 $title = get_string('profiledscriptview', 'admin');
                 $url = $CFG->wwwroot . '/admin/tool/profiling/index.php?script=' . urlencode($SCRIPT);
-                $link= '<a title="' . $title . '" href="' . $url . '">' . $txt . '</a>';
+                $link = '<a title="' . $title . '" href="' . $url . '">' . $txt . '</a>';
                 $output .= '<div class="profilingfooter">' . $link . '</div>';
             }
             $purgeurl = new moodle_url('/admin/purgecaches.php', array('confirm' => 1,
@@ -564,11 +553,11 @@ public function debug_footer_html() {
             $output .= html_writer::div($validatorlinkslist, 'validators');
         }
         $theme = theme_config::load('cul_moove');
- 
+
         $output .= $theme->settings->footer . '</div>' . $theme->settings->footerbottom;
-        return $output;    
+        return $output;
     }
-    
+
     /**
      * Returns a button to make a hidden course visible.
      *
@@ -583,28 +572,27 @@ public function debug_footer_html() {
 
         if (!has_capability('moodle/course:update', $coursecontext)) {
             return $content;
-        }        
+        }
 
         $showcourseurl = new moodle_url(
-            '/theme/cul_moove/unhide_post.php', 
-            [
-                'cid' => $COURSE->id,
-                'sesskey' => sesskey()
-            ]
+            '/theme/cul_moove/unhide_post.php', [
+            'cid' => $COURSE->id,
+            'sesskey' => sesskey()
+                ]
         );
 
-        $showcoursetxt = get_string('showcourse', 'theme_cul_moove');       
+        $showcoursetxt = get_string('showcourse', 'theme_cul_moove');
 
         return $OUTPUT->single_button($showcourseurl, $showcoursetxt, 'post', ['class' => 'showcourse d-inline-block ml-4']);
     }
-    
+
     /**
      * Checks if page requires gradebook discalimer.
      *
      * @return bool true if page requires discalimer.
-     */ 
+     */
     public function gradebook_disclaimer() {
-        $gradebookids = array (
+        $gradebookids = array(
             'page-grade-report-user-index',
             'page-grade-report-culuser-index',
             'page-grade-report-overview-index',
