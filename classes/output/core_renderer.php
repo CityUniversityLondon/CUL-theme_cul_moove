@@ -390,13 +390,18 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $header->culincourse = isset($this->page->cm->id) ? 1 : 0;
         $header->coursemainpage = $pagetype == 'course-view-culcourse' ? 1 : 0;
         //$header->culicon = isset($this->page->cm->id) ? html_writer::img($this->page->cm->get_icon_url()->out(false), '', ['class' => 'icon activityicon', 'aria-hidden' => 'true']) : '';
-        $header->culcontextheader = $this->heading($this->page->heading, 2, 'h2');
+        $wikiheader = false;
+        if (in_array($pagetype, ['mod-ouwiki-view'])) {
+            $wikiheader = true;
+        }
+        $header->culcontextheader = $wikiheader ? $this->heading($this->page->course->fullname, 2, 'h2') : $this->heading($this->page->heading, 2, 'h2');
         $header->pageheadingbutton = $this->page_heading_button();
         $header->courseheader = $this->course_header();
         $header->headeractions = $this->page->get_header_actions();
         if (!empty($pagetype) && !empty($homepagetype) && $pagetype == $homepagetype) {
             $header->welcomemessage = \core_user::welcome_message();
         }
+        $header->gradebook_disclaimer = $this->gradebook_disclaimer();
         return $this->render_from_template('core/full_header', $header);
     }
 

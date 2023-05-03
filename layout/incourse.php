@@ -119,8 +119,7 @@ $templatecontext = [
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
     'overflow' => $overflow,
     'headercontent' => $headercontent,
-    'addblockbutton' => $addblockbutton,
-    'isgradebookdisclaimer' => $OUTPUT->gradebook_disclaimer()
+    'addblockbutton' => $addblockbutton
 ];
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());

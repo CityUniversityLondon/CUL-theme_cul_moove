@@ -30,6 +30,9 @@
     }
 }}
 <header id="page-header" class="cul_moove-container-fluid">
+    {{#gradebook_disclaimer }}
+        {{> theme_cul_moove/gradebook_disclaimer }}
+    {{/gradebook_disclaimer }}
     <div class="d-flex flex-wrap">
         {{^coursemainpage}}
             {{#hasnavbar}}
