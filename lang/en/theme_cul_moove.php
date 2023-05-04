@@ -194,3 +194,7 @@ $string['includeaccyearsto_desc'] = 'The options which you can select the academ
 
 //Disclaimer on grade report page.
 $string['gradebookdisclaimer'] = 'In accordance with City, University of London policy, any marks shown here are provisional, subject to consideration by an Assessment board and approval by Senate.';
+
+//Enable accessibility.
+$string['enableaccessibility'] = 'Enable Accessibility';
+$string['enableaccessibility_desc'] = '';

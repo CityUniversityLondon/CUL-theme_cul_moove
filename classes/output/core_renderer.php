@@ -611,4 +611,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return false;
     }
 
+    public function is_accessibility_enabled() {
+        return get_config('theme_cul_moove', 'enableaccessibility');
+    }
+
 }

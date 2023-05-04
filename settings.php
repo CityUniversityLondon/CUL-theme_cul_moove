@@ -199,6 +199,19 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
+    // Enable accessibility.
+    $ac_con = get_config('theme_cul_moove', 'enableaccessibility');
+    if (!$ac_con) {
+        $DB->execute("update {user_preferences} set value ='0'");
+        $DB->execute("delete from {user_preferences} where name = 'themecul_moovesettings_fonttype'");
+    }
+    $name = 'theme_cul_moove/enableaccessibility';
+    $title = get_string('enableaccessibility', 'theme_cul_moove');
+    $description = get_string('enableaccessibility_desc', 'theme_cul_moove');
+    $default = 0;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
     // Must add the page after definiting all the settings!
     $settings->add($page);
 
