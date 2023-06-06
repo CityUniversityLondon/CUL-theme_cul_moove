@@ -15,17 +15,26 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template block_myoverview/progress-bar
+    @template theme_cul_moove/grading_panel
 
-    This template renders a simple progress bar.
+    Shown a place holder until the real content is fetched via ajax.
 
-    Example context (json):
-    {
-        "progress": 50
-    }
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * None
+
+    Context variables required for this template:
+    * None
+
+    This template loads it's content via ajax, so it cannot be shown in the template library.
 }}
-<div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" style="width: {{progress}}%" aria-valuemin="0" aria-valuemax="{{progress}}" title="Course completion progress bar"></div>
-</div>
+{{> mod_assign/loading }}
+{{#js}}
+require(['theme_cul_moove/cul_grading_panel'], function(GradingPanel) {
+    gradingPanel = new GradingPanel('[data-region="grade"]');
+    gradingPanel.registerMoreEventListeners();
+});
+{{/js}}
 
-<p class="mb-0">{{#str}}completepercent, block_myoverview, {{progress}}{{/str}}</p>

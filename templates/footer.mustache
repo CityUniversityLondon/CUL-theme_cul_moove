@@ -95,4 +95,20 @@ if (kids > 2) {
     $('body.path-question-type ol.breadcrumb > li.breadcrumb-item:first-child > a').text("Home");
 }
 $('body.format-grid ol.breadcrumb > li.breadcrumb-item:first-child > a').text("Section");
+// Back to top functionality
+var topbtn = document.getElementById("moveTop");
+var sc= document.getElementById("page");
+sc.onscroll = function() {scrollFunction()};
+function scrollFunction() {
+  if (sc.scrollTop > 20) {
+    topbtn.style.display = "block";
+  } else {
+    topbtn.style.display = "none";
+  }
+}
+function topFunction() {
+  sc.scrollTop = 0;
+}
+$('.primary-navigation > nav.moremenu > ul > li > a').attr('tabindex', '0');
+$('.drawer.drawer-primary > .drawercontent > .list-group > a:contains("Home")').css('display', 'none');
 {{/js}}
