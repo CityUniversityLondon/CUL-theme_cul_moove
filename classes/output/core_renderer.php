@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Overriden theme boost core renderer.
+ * Overridden theme boost core renderer.
  *
  * @package    theme_cul_moove
  * @copyright 2022 City University - https://www.city.ac.uk/
@@ -251,19 +251,18 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $CFG;
 
         $label = get_string('contactsitesupport', 'admin');
-        $icon = $this->pix_icon('t/email', '', 'moodle', ['class' => 'iconhelp icon-pre']);
-        $content = $icon . $label;
+        $icon = $this->pix_icon('t/life-ring', '', 'moodle', ['class' => 'iconhelp icon-pre']);
+        $newwindowicon = $this->pix_icon('i/externallink', get_string('opensinnewwindow'), 'moodle', ['class' => 'ml-1']);
+        $content = $icon . $label . $newwindowicon;
 
         if (!empty($CFG->supportpage)) {
-            $attributes = ['href' => $CFG->supportpage, 'target' => 'blank', 'class' => 'btn contactsitesupport btn-outline-info'];
+            $attributes = ['href' => $CFG->supportpage, 'target' => 'blank', 'class' => 'contactsitesupport'];
         } else {
             $attributes = [
                 'href' => $CFG->wwwroot . '/user/contactsitesupport.php',
-                'class' => 'btn contactsitesupport btn-outline-info'
+                'class' => 'contactsitesupport'
             ];
         }
-
-        $attributes += $customattribs;
 
         return \html_writer::tag('a', $content, $attributes);
     }

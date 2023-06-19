@@ -199,12 +199,25 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
+    $monthchoices = [];
+    for ($m=1; $m<=12; $m++) {
+        $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+        $monthchoices[$month] = $month;
+    }
+    $name = 'theme_cul_moove/monthtoswitchyearfilter';
+    $title = get_string('monthtoswitchyearfilter', 'theme_cul_moove');
+    $description = get_string('monthtoswitchyearfilter_desc', 'theme_cul_moove');
+    $default = 'August';
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $monthchoices);
+    $page->add($setting);
+
     // Enable accessibility.
     $ac_con = get_config('theme_cul_moove', 'enableaccessibility');
     if (!$ac_con) {
-        $DB->execute("update {user_preferences} set value ='0'");
-        $DB->execute("delete from {user_preferences} where name = 'themecul_moovesettings_fonttype'");
+        $DB->execute("delete from {user_preferences} where name = 'themecul_moovesettings_fonttype'
+            OR name like '%accessibility%'");
     }
+
     $name = 'theme_cul_moove/enableaccessibility';
     $title = get_string('enableaccessibility', 'theme_cul_moove');
     $description = get_string('enableaccessibility_desc', 'theme_cul_moove');

@@ -191,6 +191,8 @@ $string['includeaccyearsfrom'] = 'Academic year from';
 $string['includeaccyearsfrom_desc'] = 'The options which you can select the academic year from, in the my overview block';
 $string['includeaccyearsto'] = 'Academic year to';
 $string['includeaccyearsto_desc'] = 'The options which you can select the academic year to, in the my overview block';
+$string['monthtoswitchyearfilter'] = 'Month to switch filter';
+$string['monthtoswitchyearfilter_desc'] = 'Which month of the year do we switch teh filter to the correct academic year?';
 
 //Disclaimer on grade report page.
 $string['gradebookdisclaimer'] = 'In accordance with City, University of London policy, any marks shown here are provisional, subject to consideration by an Assessment board and approval by Senate.';

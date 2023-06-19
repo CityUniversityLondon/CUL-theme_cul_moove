@@ -34,13 +34,38 @@ class theme_cul_moove_block_myoverview_renderer extends \block_myoverview\output
      * @return string HTML string
      */
     public function render_main($main) {
+        $con = get_config('theme_cul_moove', 'monthtoswitchyearfilter');
+        $month = $con ? $con : 'August';
+        $year = date('Y');
+        $lastyear = date('Y', strtotime("-1 year"));
+        $strtime = strtotime("1-$month-$year");
         $newobject = $main->export_for_template($this);
+        $newob = [];
         if(isset($newobject['customfieldvalues']) && is_array($newobject['customfieldvalues'])) {
             foreach($newobject['customfieldvalues'] as $k => $ob) {
+                $key = substr($ob->value, 0,4);
                 if($ob->value == -1) {
                     unset($newobject['customfieldvalues'][$k]);
+                    continue;
+                }
+                if ($key == $lastyear) {
+                    if (time() < $strtime) {
+                        $newob = $ob;
+                        unset($newobject['customfieldvalues'][$k]);
+                        break;
+                    }
+                }
+                if ($key == $year) {
+                    if (time() > $strtime) {
+                        $newob = $ob;
+                        unset($newobject['customfieldvalues'][$k]);
+                        break;
+                    }
                 }
             }
+        }
+        if (!empty($newob)) {
+            array_unshift($newobject['customfieldvalues'], $newob);
         }
         return $this->render_from_template('block_myoverview/main', $newobject);
     }
