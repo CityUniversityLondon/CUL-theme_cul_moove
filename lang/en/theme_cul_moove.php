@@ -205,3 +205,6 @@ $string['enableaccessibility_desc'] = '';
 $string['gradehidden'] = 'This grade and feedback (if present) is hidden in the Grader Report and is not available to the student.';
 $string['gradenothidden'] = 'This grade and feedback (if present) is visible in the Grader Report and is available to the student. 
 <br/>If you have anonymous marking applied, you need to select Reveal student identities to release the grade to students.';
+
+// Overridden search aria-label
+$string['usermenu_meassage_search'] = 'Usermenu message search';
