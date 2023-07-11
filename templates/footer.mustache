@@ -90,11 +90,17 @@ require(['theme_boost/footer-popover'], function(FooterPopover) {
 FooterPopover.init();
 });
 $('body:not(.path-question-type, #page-block-quickmail) ol.breadcrumb > li.breadcrumb-item:first-child > a').text("Home");
+$('body:not(.path-question-type, #page-block-quickmail) ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('aria-label', 'home');
+$('body:not(.path-question-type, #page-block-quickmail) ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('title', 'home');
 var kids = $('body.path-question-type ol.breadcrumb > li.breadcrumb-item:first-child > a').length;
 if (kids > 2) {
     $('body.path-question-type ol.breadcrumb > li.breadcrumb-item:first-child > a').text("Home");
+    $('body.path-question-type ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('aria-label', 'home');
+    $('body.path-question-type ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('title', 'home');
 }
 $('body.format-grid ol.breadcrumb > li.breadcrumb-item:first-child > a').text("Section");
+$('body.format-grid ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('aria-label', 'section');
+$('body.format-grid ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('title', 'section');
 // Back to top functionality
 var topbtn = document.getElementById("moveTop");
 var sc= document.getElementById("page");
