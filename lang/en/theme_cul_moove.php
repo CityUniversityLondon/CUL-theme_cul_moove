@@ -183,6 +183,12 @@ $string['showcourse'] = 'Show Module';
 $string['confirmshowcourse'] = 'Are you sure you want to make this module visible to students?';
 $string['courseshown'] = 'Module is now visible to students';
 
+// Show activity dates
+$string['activitydateshidden'] = 'Assessment due dates not displaying on module page';
+$string['showactivitydates'] = 'Show assessment due dates';
+$string['confirmactivitydates'] = 'Are you sure you want to set the assessment due dates to show?';
+$string['activitydatesshown'] = 'Assessment due dates now displaying on module page';
+
 // Block overview custom field filter
 $string['customfield'] = 'Academic year custom field';
 $string['customfield_desc'] = 'The name of the custom field used for the academic year in my overview block';
@@ -208,3 +214,7 @@ $string['gradenothidden'] = 'This grade and feedback (if present) is visible in 
 
 // Overridden search aria-label
 $string['usermenu_meassage_search'] = 'Usermenu message search';
+
+// Hide rollover tool from non-staff
+$string['showrollovertool'] = 'Show students rollover tool';
+$string['showrollovertool_desc'] = 'If box is unchecked then only users with the capability moodle/course:update can see the rollover tool link';

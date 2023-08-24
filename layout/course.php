@@ -104,7 +104,7 @@ $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
 
 global $DB,$COURSE;
-
+$showactivitydates = $DB->get_field('course','showactivitydates', ['id' => $COURSE->id]);
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
@@ -129,7 +129,8 @@ $templatecontext = [
     'enablecourseindex' => $themesettings->enablecourseindex,
     'addcontentblockbutton' => $addcontentblockbutton,
     'contentblocks' => $contentblocks,
-    'iscoursevisible' => $COURSE->visible
+    'iscoursevisible' => $COURSE->visible,
+    'showactivitydates' => $showactivitydates
 ];
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());

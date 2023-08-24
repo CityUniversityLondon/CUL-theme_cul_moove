@@ -101,6 +101,8 @@ if (kids > 2) {
 $('body.format-grid ol.breadcrumb > li.breadcrumb-item:first-child > a').text("Section");
 $('body.format-grid ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('aria-label', 'section');
 $('body.format-grid ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('title', 'section');
+$('div.editor_atto_wrap').closest("div[data-fieldtype]").css("overflow","auto");
+
 // Back to top functionality
 var topbtn = document.getElementById("moveTop");
 var sc= document.getElementById("page");
@@ -118,4 +120,12 @@ function topFunction() {
 $('.primary-navigation > nav.moremenu > ul > li > a').attr('tabindex', '0');
 $('.secondary-navigation > div > nav.moremenu > ul > li > a').attr('tabindex', '0');
 $('.drawer.drawer-primary > .drawercontent > .list-group > a:contains("Home")').css('display', 'none');
+
+// MDL4-320 when on last element and tab pressed, return to first element.
+$('.drawer.drawer-left.drawer-primary > .drawercontent > .list-group > a:last-of-type').keydown(function (e){
+    if(e.keyCode === 9) {
+      e.preventDefault();
+      $('.drawer.drawer-left.drawer-primary > .drawerheader > button.btn.drawertoggle').focus();
+    }
+});
 {{/js}}

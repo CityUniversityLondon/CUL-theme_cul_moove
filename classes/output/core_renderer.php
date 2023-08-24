@@ -121,7 +121,27 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $additionalclasses = explode(' ', $additionalclasses);
         }
 
+        // Add student if user is a student on any course.
+        global $USER;
+        if (!get_config('theme_cul_moove', 'showrollovertool')) {
+            if (!$this->get_user_capability_in_any_course('moodle/course:update', $USER->id)) {
+                $additionalclasses[] = 'rollover-student';
+            }
+        }
+
         return ' id="' . $this->body_id() . '" class="' . $this->body_css_classes($additionalclasses) . '"';
+    }
+
+    /**
+     * Function that checks if users is a student in any course.
+     *
+     * @return bool
+     */
+    private function get_user_capability_in_any_course($capability, $userid) {
+    global $DB;
+
+    return $DB->get_records_sql("select 1 from {role_assignments} where userid = ? and roleid in
+            (select roleid from {role_capabilities} where capability = ?) limit 1", [$userid, $capability]);
     }
 
     /**
@@ -383,7 +403,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         $header = new \stdClass();
         $header->settingsmenu = $this->context_header_settings_menu();
-        $header->contextheader = $this->context_header();
+        $header->contextheader = str_replace('Preferences:', '', $this->context_header());
         $header->hasnavbar = empty($this->page->layout_options['nonavbar']);
         $header->navbar = $this->navbar();
         $header->culincourse = isset($this->page->cm->id) ? 1 : 0;
@@ -393,7 +413,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if (in_array($pagetype, ['mod-ouwiki-view'])) {
             $wikiheader = true;
         }
-        $header->culcontextheader = $wikiheader ? $this->heading($this->page->course->fullname, 2, 'h2') : $this->heading($this->page->heading, 2, 'h2');
+        $header->culcontextheader = $wikiheader ? str_replace('Preferences:', '',
+                $this->heading($this->page->course->fullname, 2, 'h2')) :
+                str_replace('Preferences:', '', $this->heading($this->page->heading, 2, 'h2'));
         $header->pageheadingbutton = $this->page_heading_button();
         $header->courseheader = $this->course_header();
         $header->headeractions = $this->page->get_header_actions();
@@ -588,6 +610,34 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $showcoursetxt = get_string('showcourse', 'theme_cul_moove');
 
         return $OUTPUT->single_button($showcourseurl, $showcoursetxt, 'post', ['class' => 'showcourse d-inline-block ml-4']);
+    }
+
+    /**
+     * Returns a button to make a hidden course visible.
+     *
+     * @return string the HTML to be output.
+     */
+    public function show_activitydates_button() {
+
+        global $COURSE, $OUTPUT;
+
+        $content = '';
+        $coursecontext = context_course::instance($COURSE->id);
+
+        if (!has_capability('moodle/course:update', $coursecontext)) {
+            return $content;
+        }
+
+        $showcourseurl = new moodle_url(
+            '/theme/cul_moove/showactivitydates.php', [
+            'cid' => $COURSE->id,
+            'sesskey' => sesskey()
+                ]
+        );
+
+        $showactivitydatestxt = get_string('showactivitydates', 'theme_cul_moove');
+
+        return $OUTPUT->single_button($showcourseurl, $showactivitydatestxt, 'post', ['class' => 'showcourse d-inline-block ml-4']);
     }
 
     /**

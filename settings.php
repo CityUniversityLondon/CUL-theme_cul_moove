@@ -225,6 +225,14 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
 
+    // Set rollover tool to only display for staff (users with capability moodle/course:update).
+    $name = 'theme_cul_moove/showrollovertool';
+    $title = get_string('showrollovertool', 'theme_cul_moove');
+    $description = get_string('showrollovertool_desc', 'theme_cul_moove');
+    $default = 0;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
     // Must add the page after definiting all the settings!
     $settings->add($page);
 
