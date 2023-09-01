@@ -105,6 +105,9 @@ $headercontent = $header->export_for_template($renderer);
 
 global $DB,$COURSE;
 $showactivitydates = $DB->get_field('course','showactivitydates', ['id' => $COURSE->id]);
+if (!has_capability('moodle/course:update', context_course::instance($COURSE->id))) {
+    $showactivitydates = 1;
+}
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
