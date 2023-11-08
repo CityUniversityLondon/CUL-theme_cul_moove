@@ -218,3 +218,6 @@ $string['usermenu_meassage_search'] = 'Usermenu message search';
 // Hide rollover tool from non-staff
 $string['showrollovertool'] = 'Show students rollover tool';
 $string['showrollovertool_desc'] = 'If box is unchecked then only users with the capability moodle/course:update can see the rollover tool link';
+
+$string['searchstring'] = 'Global content search';
+$string['meassage_search'] = 'Message search';
