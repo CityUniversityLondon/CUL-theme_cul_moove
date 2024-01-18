@@ -53,10 +53,9 @@ if ($courseindexopen) {
 
 $blockshtml = $OUTPUT->blocks('side-pre');
 $hasblocks = (strpos($blockshtml, 'data-block=') !== false || !empty($addblockbutton));
-
 $addcontentblockbutton = $OUTPUT->addblockbutton('content');
-$contentblocks = $OUTPUT->custom_block_region('content');
-
+$culblock = $OUTPUT->custom_block_region('content');
+$contentblocks = $culblock;
 if (!$hasblocks) {
     $blockdraweropen = false;
 }

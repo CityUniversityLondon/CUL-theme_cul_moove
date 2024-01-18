@@ -103,6 +103,18 @@ $('body.format-grid ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('a
 $('body.format-grid ol.breadcrumb > li.breadcrumb-item:first-child > a').attr('title', 'section');
 $('div.editor_atto_wrap').closest("div[data-fieldtype]").css("overflow","auto");
 
+$("#page-course-view.culblock input[name='config_quicklinksequence']").closest("form").find("#id_bui_defaultregion option[value='content']").each(function() {
+    $(this).add();
+});
+$("#page-course-view.culblock input[name='config_quicklinksequence']").closest("form").find("#id_bui_region option[value='content']").each(function() {
+    $(this).add();
+});
+$("#page-course-view.noculblock form").find("#id_bui_defaultregion option[value='content']").each(function() {
+    $(this).remove();
+});
+$("#page-course-view.noculblock form").find("#id_bui_region option[value='content']").each(function() {
+    $(this).remove();
+});
 // Back to top functionality
 var topbtn = document.getElementById("moveTop");
 var sc= document.getElementById("page");

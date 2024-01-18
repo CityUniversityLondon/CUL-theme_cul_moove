@@ -122,11 +122,21 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         // Add student if user is a student on any course.
-        global $USER;
+        global $USER, $COURSE, $DB;
         if (!get_config('theme_cul_moove', 'showrollovertool')) {
             if (!$this->get_user_capability_in_any_course('moodle/course:update', $USER->id)) {
                 $additionalclasses[] = 'rollover-student';
             }
+        }
+
+        // Check if culcourse_dashboard block is on course page.
+        // If so remove the side-pre region when configuring block.
+        $ctx = context_course::instance($COURSE->id)->id;
+        if ($DB->record_exists('block_instances', ['blockname' =>
+            'culcourse_dashboard', 'parentcontextid' => $ctx])) {
+            $additionalclasses[] = 'culblock';
+        } else {
+            $additionalclasses[] = 'noculblock';
         }
 
         return ' id="' . $this->body_id() . '" class="' . $this->body_css_classes($additionalclasses) . '"';
