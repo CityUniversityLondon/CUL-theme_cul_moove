@@ -132,9 +132,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
         // Check if culcourse_dashboard block is on course page.
         // If so remove the side-pre region when configuring block.
         $ctx = context_course::instance($COURSE->id)->id;
-        if ($DB->record_exists('block_instances', ['blockname' =>
-            'culcourse_dashboard', 'parentcontextid' => $ctx])) {
+        if ($dash = $DB->get_record('block_instances', ['blockname' =>
+            'dashboard', 'parentcontextid' => $ctx])) {
             $additionalclasses[] = 'culblock';
+            if ($dash->defaultregion == 'side-pre') {
+                $additionalclasses[] = 'cul-side-pre';
+            }
         } else {
             $additionalclasses[] = 'noculblock';
         }
