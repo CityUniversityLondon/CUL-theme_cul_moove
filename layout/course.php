@@ -53,9 +53,6 @@ if ($courseindexopen) {
 
 $blockshtml = $OUTPUT->blocks('side-pre');
 $hasblocks = (strpos($blockshtml, 'data-block=') !== false || !empty($addblockbutton));
-$addcontentblockbutton = $OUTPUT->addblockbutton('content');
-$culblock = $OUTPUT->custom_block_region('content');
-$contentblocks = $culblock;
 if (!$hasblocks) {
     $blockdraweropen = false;
 }
@@ -107,6 +104,20 @@ $showactivitydates = $DB->get_field('course','showactivitydates', ['id' => $COUR
 if (!has_capability('moodle/course:update', context_course::instance($COURSE->id))) {
     $showactivitydates = 1;
 }
+$culcourseblocks = "";
+if ($COURSE->format == 'culcourse') {
+    $ctx = context_course::instance($COURSE->id)->id;
+    if ($dash = $DB->get_record('block_instances', [
+        'blockname' => 'dashboard',
+        'parentcontextid' => $ctx
+    ])) {
+      $block = new block_dashboard($dash->id);
+      $block->init();
+      $culcourseoverride = true;
+      $culcourseblocks = $block->get_content($culcourseoverride)->text;
+    }
+}
+
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
@@ -129,10 +140,9 @@ $templatecontext = [
     'headercontent' => $headercontent,
     'addblockbutton' => $addblockbutton,
     'enablecourseindex' => $themesettings->enablecourseindex,
-    'addcontentblockbutton' => $addcontentblockbutton,
-    'contentblocks' => $contentblocks,
     'iscoursevisible' => $COURSE->visible,
-    'showactivitydates' => $showactivitydates
+    'showactivitydates' => $showactivitydates,
+    'culcourseblocks' => $culcourseblocks,
 ];
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
