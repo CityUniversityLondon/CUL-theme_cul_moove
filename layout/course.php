@@ -107,14 +107,18 @@ if (!has_capability('moodle/course:update', context_course::instance($COURSE->id
 $culcourseblocks = "";
 if ($COURSE->format == 'culcourse') {
     $ctx = context_course::instance($COURSE->id)->id;
-    if ($dash = $DB->get_record('block_instances', [
+    if ($dashrecord = $DB->get_record('block_instances', [
         'blockname' => 'dashboard',
         'parentcontextid' => $ctx
     ])) {
-      $block = new block_dashboard($dash->id);
-      $block->init();
-      $culcourseoverride = true;
-      $culcourseblocks = $block->get_content($culcourseoverride)->text;
+        $block = block_instance('dashboard', $dashrecord);
+        $culcourseoverride = true;
+        $dashboard_content = $block->get_content($culcourseoverride);
+        if ($dashboard_content != null) {
+            $culcourseblocks = $block->get_content($culcourseoverride)->text;
+        } else {
+            $culcourseblocks = '';
+        }
     }
 }
 
