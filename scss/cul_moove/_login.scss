@@ -14,6 +14,28 @@
         color: #fff;
     }
 }
+#page-login-index {
+
+  .login-identityprovider-btn {
+    display: block;
+  }
+  #toggleGuest,
+  .login-identityprovider-btn[href$="/azureb2c/"] {
+    display: none;
+  }
+
+}
+#page-login-index.guestlogin {
+
+  .login-identityprovider-btn {
+    display: none;
+  }
+  #toggleGuest,
+  .login-identityprovider-btn[href$="/azureb2c/"] {
+    display: block;
+  }
+
+}
 
 #page-login-index {
     .login-container {

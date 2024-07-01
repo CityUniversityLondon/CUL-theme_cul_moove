@@ -221,3 +221,4 @@ $string['showrollovertool_desc'] = 'If box is unchecked then only users with the
 
 $string['searchstring'] = 'Global content search';
 $string['meassage_search'] = 'Message search';
+$string['toggletosinglesignon'] = 'If you are a City student or staff member, please go to the <a href="#">main login page</a> to login to Moodle with your City credentials.';
