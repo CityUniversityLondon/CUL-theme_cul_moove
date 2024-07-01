@@ -192,7 +192,13 @@
                         {{/identityproviders}}
                     </div>
 
+
                     <div class="login-divider"></div>
+                    <div id="toggleGuest">
+                        <small class="text-muted">
+                        {{#str}}toggletosinglesignon, theme_cul_moove{{/str}}
+                        </small>
+                    </div>
                 {{/hasidentityproviders}}
                 {{#hasinstructions}}
                     {{{instructions}}}
@@ -224,6 +230,22 @@
 </div>
 
 {{#js}}
+    $(document).ready(function() {
+        function checkHash() {
+            if (location.hash == '#guest') {
+                $('body').addClass('guestlogin');
+            } else {
+                $('body').removeClass('guestlogin');
+            }
+        }
+
+        // Check the hash on page load
+        checkHash();
+
+        $(window).on('hashchange', function() {
+          checkHash();
+        });
+    });
     {{^error}}
         {{#autofocusform}}
             var userNameField = document.getElementById('username');
