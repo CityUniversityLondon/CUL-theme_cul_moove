@@ -26,7 +26,6 @@
 require_once($CFG->dirroot . '/blocks/myoverview/classes/output/main.php');
 
 class theme_cul_moove_block_myoverview_renderer extends \block_myoverview\output\renderer {
- 
     /**
      * Return the main content for the block overview.
      *
@@ -41,10 +40,10 @@ class theme_cul_moove_block_myoverview_renderer extends \block_myoverview\output
         $strtime = strtotime("1-$month-$year");
         $newobject = $main->export_for_template($this);
         $newob = [];
-        if(isset($newobject['customfieldvalues']) && is_array($newobject['customfieldvalues'])) {
-            foreach($newobject['customfieldvalues'] as $k => $ob) {
-                $key = substr($ob->value, 0,4);
-                if($ob->value == -1) {
+        if (isset($newobject['customfieldvalues']) && is_array($newobject['customfieldvalues'])) {
+            foreach ($newobject['customfieldvalues'] as $k => $ob) {
+                $key = substr($ob->value, 0, 4);
+                if ($ob->value == -1) {
                     unset($newobject['customfieldvalues'][$k]);
                     continue;
                 }
@@ -66,6 +65,9 @@ class theme_cul_moove_block_myoverview_renderer extends \block_myoverview\output
         }
         if (!empty($newob)) {
             array_unshift($newobject['customfieldvalues'], $newob);
+            usort($newobject['customfieldvalues'], function ($a, $b) {
+                return strcmp($b->value, $a->value);
+            });
         }
         return $this->render_from_template('block_myoverview/main', $newobject);
     }
