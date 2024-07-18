@@ -24,13 +24,80 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-global $DB, $USER, $OUTPUT, $SITE, $PAGE;
+global $CFG, $DB, $USER, $OUTPUT, $SITE, $PAGE;
 
 // Get the profile userid.
 $courseid = optional_param('course', 1, PARAM_INT);
 $userid = optional_param('id', $USER->id, PARAM_INT);
 $userid = $userid ? $userid : $USER->id;
 $user = $DB->get_record('user', ['id' => $userid], '*', MUST_EXIST);
+
+function updateuserazureb2c($userid, $idtoken) {
+    global $CFG, $OUTPUT, $USER, $PAGE, $DB;
+    require_once("{$CFG->dirroot}/auth/azureb2c/classes/loginflow/base.php");
+    $idtoken = \auth_azureb2c\jwt::instance_from_encoded($idtoken);
+    $username = $idtoken->claim('oid');
+    if (!empty($username)) {
+        $firstname = $idtoken->claim('given_name');
+        $lastname = $idtoken->claim('family_name');
+        $country = $idtoken->claim('country');
+        $countryval = "";
+        if (!empty($country)) {
+            $countries = get_string_manager()->get_list_of_countries();
+            foreach ($countries as $countrykey => $countryvalue) {
+                $countryb2c = $country;
+                $countrymoodle = $countryvalue;
+                if ($countrymoodle == $countryb2c) {
+                    $countryval = $countrykey;
+                }
+            }
+        }
+        $gender = $idtoken->claim('extension_WP_Gender');
+
+        $userupdate = new \stdClass();
+        $userupdate->id = $userid;
+        if (!empty($firstname)) {
+            $userupdate->firstname = $firstname;
+        }
+        if (!empty($lastname)) {
+            $userupdate->lastname = $lastname;
+        }
+        if (!empty($countryval)) {
+            $userupdate->country = $countryval;
+        }
+        $DB->update_record('user', $userupdate);
+
+        $USER->firstname = $firstname;
+        $USER->lastname = $lastname;
+        $USER->country = $countryval;
+        return true;
+    }
+}
+
+$idtoken = "";
+if (!empty($_COOKIE['id_token'])) {
+    $idtoken = $_COOKIE['id_token'];
+    $idtoken = explode("=", $idtoken);
+}
+
+$editcheck = get_user_preferences('auth_azureb2c_edit');
+if ($editcheck == 0 || $editcheck == 2) {
+    if ($editcheck == 0) {
+        set_user_preference('auth_azureb2c_edit', 2);
+        header("Refresh:0");
+    }
+    if ($editcheck == 2) {
+        $userid = optional_param('id', null, PARAM_INT);
+        if (!empty($idtoken[1]) && ($idtoken[0] == "#id_token")) {
+            updateuserazureb2c($userid, $idtoken[1]);
+            $_COOKIE['id_token'] = null;
+            set_user_preference('auth_azureb2c_edit', 1);
+        }
+    }
+}
+
+$azureurl = get_config('auth_azureb2c', 'editprofileendpoint') . "&client_id=" . get_config('auth_azureb2c', 'clientid') . "&
+	nonce=defaultNonce&redirect_uri=" . $CFG->wwwroot . "/auth/azureb2c/&scope=openid&response_type=id_token";
 
 $primary = new core\navigation\output\primary($PAGE);
 $renderer = $PAGE->get_renderer('core');
@@ -51,6 +118,7 @@ $context = context_course::instance(SITEID);
 
 $usercanviewprofile = user_can_view_profile($user);
 
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
@@ -65,7 +133,8 @@ $templatecontext = [
     'userfullname' => fullname($user),
     'headerbuttons' => \theme_cul_moove\util\extras::get_mypublic_headerbuttons($context, $user),
     'editprofileurl' => \theme_cul_moove\util\extras::get_mypublic_editprofile_url($user, $courseid),
-    'usercanviewprofile' => $usercanviewprofile
+    'azureurl' => $azureurl,
+    'usercanviewprofile' => $usercanviewprofile,
 ];
 
 if ($usercanviewprofile) {

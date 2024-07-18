@@ -49,7 +49,17 @@
         "addblockbutton": ""
     }
 }}
-{{> theme_cul_moove/head }}
+{{{ output.doctype }}}
+<html {{{ output.htmlattributes }}}>
+<head>
+    <title>{{{ output.page_title }}}</title>
+    <link rel="shortcut icon" href="{{{ output.favicon }}}" />
+    {{{ output.standard_head_html }}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        document.cookie="id_token="+window.location.hash;
+    </script>
+</head>
 
 <body {{{ bodyattributes }}}>
 {{> theme_cul_moove/accessibilitybar }}
@@ -93,6 +103,9 @@
                                 {{#editprofileurl}}
                                     <a href="{{{editprofileurl}}}" class="btn btn-sm btn-primary btn-block my-2"><i class="fa fa-edit"></i> {{#str}}editmyprofile{{/str}}</a>
                                 {{/editprofileurl}}
+                                {{#azureurl}}
+                                    <a href="{{{azureurl}}}" class="btn btn-sm btn-primary btn-block my-2"><i class="fa fa-edit"></i> {{#str}}editmyprofile{{/str}}</a>
+                                {{/azureurl}}
 
                                 <div class="userinfo my-2">
                                     {{#userdescription}}
