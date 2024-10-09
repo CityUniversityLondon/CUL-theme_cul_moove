@@ -26,6 +26,8 @@
 
 namespace theme_cul_moove\output;
 
+use context_header;
+use core_auth\output\login;
 use theme_config;
 use context_course;
 use moodle_url;
@@ -135,12 +137,15 @@ class core_renderer extends \theme_boost\output\core_renderer {
     /**
      * Function that checks if users is a student in any course.
      *
+     * @param mixed $capability user capability to check
+     * @param mixed $userid user to check capability of
+     *
      * @return bool
      */
     private function get_user_capability_in_any_course($capability, $userid) {
-    global $DB;
+        global $DB;
 
-    return $DB->get_records_sql("select 1 from {role_assignments} where userid = ? and roleid in
+        return $DB->get_records_sql("select 1 from {role_assignments} where userid = ? and roleid in
             (select roleid from {role_capabilities} where capability = ?) limit 1", [$userid, $capability]);
     }
 
