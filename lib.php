@@ -366,13 +366,6 @@ footer#page-footer .cul_moove-container-fluid .footer-dark-inner {
     padding-bottom: 20px;
 }
 
-/* Mike fix for KalVidRes description showing twice */
-body#page-mod-kalvidres-view .activity-header {
-    display: none;
-}
-body#page-mod-kalvidassign-view .activity-header {
-    display: none;
-}
 .activity-add, .block-add {
     color: #0f6cbf;
     background-color: #f5f9fc;
