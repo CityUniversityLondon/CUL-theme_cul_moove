@@ -803,6 +803,9 @@ div.h5p-image-hotspot-popup {
 div.h5p-placeholder {
   max-width: 110ch !important;
 }
+.navbar .navbar-brand .logo {
+  height: 150px;
+}
 /*Fix for the book chapters and culcourse_block icons*/
 body .drawer#theme_boost-drawers-blocks:focus-within {
     position: fixed;
